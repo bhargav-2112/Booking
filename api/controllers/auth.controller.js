@@ -33,7 +33,7 @@ export const login = async(req, res, next) => {
 
         // setting cookie
         res.cookie("access_token", token, {
-            httpOnly: true,
+            httpOnly: true, //by enabling this option(i.e. httpOnly:true), the cookie cannot be cleared by the user
         }).status(200).json({
             details: {...otherDetails},
             isAdmin

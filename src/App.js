@@ -7,6 +7,7 @@ import Login from './pages/login/Login.jsx';
 import {useNavigate} from 'react-router-dom'
 import { useContext } from 'react';
 import {Navigate} from 'react-router-dom'
+import Register from './pages/register/Register.jsx';
 
 function App() {
   const ProtectedRoute = ({children}) => {
@@ -26,9 +27,18 @@ function App() {
             <Home />
           </ProtectedRoute>
           } />
-          <Route path="/hotels" element={<List />} />
-          <Route path="/hotels/:id" element={<Hotel />} />
+          <Route path="/hotels" element={
+          <ProtectedRoute>
+            <List />
+          </ProtectedRoute>
+          } />
+          <Route path="/hotels/:id" element={
+          <ProtectedRoute>
+            <Hotel />
+          </ProtectedRoute>
+          } />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
     </div>

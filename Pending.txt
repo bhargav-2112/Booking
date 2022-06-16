@@ -1,0 +1,4 @@
+Days calculation - done
+Not showing already booked rooms - done
+logout - done
+registration - done

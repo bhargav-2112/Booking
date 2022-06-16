@@ -2,12 +2,12 @@ import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext';
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
-import "./login.css"
-import {Link} from 'react-router-dom'
+import "./register.css"
 
-const Login = () => {
+const Register = () => {
     const [credentials, setCredentials] = useState({
         username:undefined,
+        email:undefined,
         password:undefined
     });
 
@@ -15,24 +15,24 @@ const Login = () => {
     const navigate = useNavigate();
     
     const handleChange = (e) => {
-        const loginData = setCredentials((prev) => ( 
+        const registerData = setCredentials((prev) => ( 
             {
             ...prev,
             [e.target.id]: e.target.value
         })//this will assign value to the id of the input
         )
-        console.log("loginData",loginData);
+        console.log("registerData",registerData);
     }
 
     const handleClick = async(e) => {
         e.preventDefault();
-        dispatch({type: "LOGIN_START"});
+        dispatch({type: "REGISTER_START"});
         try {
-            const res = await axios.post("/auth/login", credentials)
-            dispatch({type:"LOGIN_SUCCESS", payload: res.data.details});
+            const res = await axios.post("/auth/register", credentials)
+            dispatch({type:"REGISTER_SUCCESS", payload: res.data.details});
             navigate('/');
         } catch (error) {
-            dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
+            dispatch({ type: "REGISTER_FAILURE", payload: error.response.data });
         }
         
     }
@@ -48,6 +48,34 @@ const Login = () => {
         className="lInput"
       />
       <input
+        type="text"
+        placeholder="email"
+        id="email"
+        onChange={handleChange}
+        className="lInput"
+      />
+      <input
+        type="text"
+        placeholder="city"
+        id="city"
+        onChange={handleChange}
+        className="lInput"
+      />
+      <input
+        type="text"
+        placeholder="country"
+        id="country"
+        onChange={handleChange}
+        className="lInput"
+      />
+      <input
+        type="text"
+        placeholder="phone"
+        id="phone"
+        onChange={handleChange}
+        className="lInput"
+      />
+      <input
         type="password"
         placeholder="password"
         id="password"
@@ -55,16 +83,13 @@ const Login = () => {
         className="lInput"
       />
       <button disabled={loading} onClick={handleClick} className="lButton">
-        Login
+        Register
       </button>
-      <p>Don't have an account</p>
-      <Link to="/register" >
-          <span>Register here</span>
-        </Link>
+      
       {error && <span>{error.message}</span>}
     </div>
   </div>
   )
 }
 
-export default Login
+export default Register
